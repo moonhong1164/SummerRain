@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>☔ 여름비 길드 라운지</title>
+  <style>
+    :root {
+      --bg: #f9fcff;
+      --card: #ffffff;
+      --sky: #7dd3fc;
+      --sky-deep: #38bdf8;
+      --text-main: #0f172a;
+      --text-sub: #64748b;
+      --border-soft: #e2e8f0;
+      --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --rainbow: linear-gradient(90deg,
+        #f97373,
+        #fbbf24,
+        #34d399,
+        #38bdf8,
+        #a855f7,
+        #f472b6
+      );
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Noto Sans KR", sans-serif;
+      background: radial-gradient(circle at top, #e0f2fe 0, #f9fcff 45%, #ffffff 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.9),
+        rgba(255, 255, 255, 0.7)
+      );
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .nav-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .logo-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background-image: var(--rainbow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px rgba(56, 189, 248, 0.45);
+      color: #ffffff;
+      font-size: 18px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--text-sub);
+      transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      background: rgba(191, 219, 254, 0.7);
+      color: var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    .nav-pill {
+      padding: 6px 14px;
+      border-radius: 999px;
+      background-image: var(--rainbow);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 6px 16px rgba(96, 165, 250, 0.65);
+    }
+
+    main {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+    }
+
+    /* Hero / 대문 영역 */
+    .hero {
+      margin-top: 18px;
+      padding: 24px 20px 26px;
+      border-radius: var(--radius-xl);
+      background: linear-gradient(
+        135deg,
+        rgba(59, 130, 246, 0.10),
+        rgba(196, 181, 253, 0.12),
+        rgba(244, 114, 182, 0.14)
+      );
+      border: 1px solid rgba(191, 219, 254, 0.7);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
+      gap: 20px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
+
+    .hero-text h1 span {
+      background-image: var(--rainbow);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text p {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin-bottom: 12px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .hero-tag {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(191, 219, 254, 0.8);
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .btn-primary {
+      font-size: 14px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background-image: var(--rainbow);
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: 0 8px 18px rgba(96, 165, 250, 0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(96, 165, 250, 0.75);
+    }
+
+    .btn-ghost {
+      font-size: 14px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.85);
+      color: var(--text-sub);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.12s ease, transform 0.12s ease;
+    }
+
+    .btn-ghost:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .hero-image {
+      position: relative;
+      min-height: 180px;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top, #e0f2fe, #ffffff);
+      border: 1px solid rgba(191, 219, 254, 0.8);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-image-placeholder {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .hero-image-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 999px;
+      background-image: var(--rainbow);
+      opacity: 0.9;
+      filter: blur(0.2px);
+      box-shadow:
+        0 0 0 6px rgba(255, 255, 255, 0.7),
+        0 18px 40px rgba(56, 189, 248, 0.7);
+      margin: 0 auto 12px;
+    }
+
+    .hero-image-note {
+      font-size: 11px;
+      color: var(--text-sub);
+      opacity: 0.9;
+    }
+
+    /* 섹션 공통 */
+    section {
+      margin-top: 26px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-title-badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(191, 219, 254, 0.7);
+      color: var(--text-sub);
+    }
+
+    .section-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    /* 길드 소개 카드 */
+    .guild-card {
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 16px 16px 14px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .guild-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .guild-pill {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(239, 246, 255, 0.9);
+      border: 1px solid rgba(191, 219, 254, 0.8);
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .guild-card h3 {
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .guild-list {
+      padding-left: 16px;
+      margin-top: 4px;
+      color: var(--text-sub);
+    }
+
+    .guild-side-box {
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(248, 250, 252, 0.9);
+      padding: 10px 12px;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .guild-side-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    /* 길드원 소개 */
+    .member-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+    }
+
+    .member-card {
+      position: relative;
+      padding: 14px 14px 13px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.98);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 10px 25px rgba(148, 163, 184, 0.35);
+      overflow: hidden;
+    }
+
+    .member-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: var(--rainbow);
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .member-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .member-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .member-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .member-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top, #bfdbfe, #ffffff);
+      border: 2px solid rgba(125, 211, 252, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .member-name {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .member-sub {
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .member-tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      color: var(--text-sub);
+    }
+
+    .member-body {
+      font-size: 12px;
+      margin-top: 4px;
+      display: grid;
+      gap: 2px;
+    }
+
+    .member-label {
+      font-weight: 600;
+      margin-right: 4px;
+      color: #0f172a;
+    }
+
+    .member-footer {
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--text-sub);
+    }
+
+    .member-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .member-chip {
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(191, 219, 254, 0.9);
+    }
+
+    footer {
+      margin-top: 30px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(226, 232, 240, 0.9);
+      font-size: 11px;
+      color: var(--text-sub);
+      text-align: center;
+    }
+
+    .rainbow-line {
+      width: 100%;
+      height: 3px;
+      border-radius: 999px;
+      background-image: var(--rainbow);
+      margin-bottom: 8px;
+      opacity: 0.85;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .guild-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .nav-links {
+        gap: 8px;
+        font-size: 13px;
+      }
+
+      .hero-text h1 {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="logo">
+        <div class="logo-badge">☔</div>
+        <!-- 👉 길드 이름 -->
+        <span>여름비 길드 라운지</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#top">홈</a>
+        <a href="#guild">길드 소개</a>
+        <a href="#members">길드원 소개</a>
+        <div class="nav-pill">Recruiting ☁️</div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero / 대문 -->
+    <section class="hero">
+      <div class="hero-text">
+        <h1><span>여름비 길드</span>에 오신 걸 환영합니다 ☔</h1>
+        <p>
+          하얀 구름 사이로 내리는 여름비처럼, 시원하고 편안한 분위기의 <b>성인 친목 길드</b>입니다.<br />
+          게임도 오래, 인연도 오래. 가볍게 시작해서 오래 함께할 가족을 기다리고 있어요.
+        </p>
+
+        <div class="hero-tags">
+          <div class="hero-tag">🧡 아이라 서버 · Lv.5 길드</div>
+          <div class="hero-tag">✨ 20세 이상 성인 친목</div>
+          <div class="hero-tag">⚔️ 어비스 · 레이드 · 파티 사냥 활발</div>
+          <div class="hero-tag">💬 카카오톡 오픈채팅 필수</div>
+        </div>
+
+        <div class="hero-buttons">
+          <button class="btn-primary" onclick="document.getElementById('members').scrollIntoView({behavior:'smooth'})">
+            길드원 구경하기
+            <span>↘</span>
+          </button>
+          <button class="btn-ghost" onclick="window.open('https://mabinogimobile.nexon.com/Community/Guild/3302078','_blank')">
+            여름비 길드 모집글 보러가기 ✉
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <div class="hero-image-placeholder">
+          <div class="hero-image-circle"></div>
+          <!-- 👉 여기 나중에 이미지 파일 넣고 싶으면
+               <img src="images/guild-main.png" alt="여름비 길드 대표 이미지" style="max-width:100%;border-radius:18px;" />
+               이런 식으로 교체하면 돼 -->
+          <div class="hero-image-note">
+            여기에는 여름비 길드 대표 그림 / 스크린샷을 넣어 주세요 ☔
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 길드 소개 -->
+    <section id="guild">
+      <div class="section-header">
+        <div class="section-title">
+          길드 소개
+          <span class="section-title-badge">About 여름비</span>
+        </div>
+        <p class="section-desc">
+          마비노기 모바일 아이라 서버, 성인 친목 길드 &lt;여름비&gt;의 분위기와 운영 방식을 정리했어요.
+        </p>
+      </div>
+
+      <div class="guild-card">
+        <div>
+          <div class="guild-pill-row">
+            <div class="guild-pill">☔ 성인 친목 (20+)</div>
+            <div class="guild-pill">🗺 아이라 서버</div>
+            <div class="guild-pill">🏰 Lv.5 길드</div>
+          </div>
+          <h3>여름비는 이런 길드를 지향해요</h3>
+          <ul class="guild-list">
+            <li>활기찬 채팅과 파티 플레이를 좋아하는 분들과 오래 함께하는 길드</li>
+            <li>게임 진행도 중요하지만, 서로 챙기고 대화 나누는 <b>진짜 가족 같은 분위기</b></li>
+            <li>편한 말투, 성인만의 여유로운 농담까지 가능한 따뜻한 커뮤니티</li>
+          </ul>
+
+          <h3 style="margin-top:10px;">이런 분이라면 딱이에요</h3>
+          <ul class="guild-list">
+            <li>혼자보단 같이 어비스 / 레이드 / 파티 사냥을 즐기고 싶으신 분</li>
+            <li>짧게 불타고 떠나기보단, 꾸준히 접속하며 오래 즐기실 분</li>
+            <li>20세 이상의 성인 유저로, 편안한 친목 분위기를 선호하시는 분</li>
+          </ul>
+        </div>
+
+        <div class="guild-side-box">
+          <strong>운영 & 가입 안내</strong>
+          <div class="guild-side-row">
+            <div>
+              · <b>활동 컨텐츠</b><br />
+              &nbsp;&nbsp;– 길드 어비스, 레이드, 파티 사냥 활발<br />
+              &nbsp;&nbsp;– 각자 속도에 맞춰 즐기는 PvE 중심 플레이
+              <br /><br />
+              · <b>소통 채널</b><br />
+              &nbsp;&nbsp;– <b>카카오톡 오픈채팅 필수 참여</b><br />
+              &nbsp;&nbsp;– 디스코드는 자유 참여
+              <br /><br />
+              · <b>기본 매너</b><br />
+              &nbsp;&nbsp;– 3일 이상 무단 미접속 시 정리될 수 있어요<br />
+              &nbsp;&nbsp;– 비매너 / 성희롱 / 공격적 언행은 즉시 강제 탈퇴
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <b>가입 문의</b><br />
+            · 인게임 닉네임 <b>마리앙르</b> 또는 <b>크로스퍼</b>에게<br />
+            · 간단한 자기소개와 함께 귓속말을 보내주세요 ☺
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 길드원 소개 -->
+    <section id="members">
+      <div class="section-header">
+        <div class="section-title">
+          길드원 소개
+          <span class="section-title-badge">Member Profiles</span>
+        </div>
+        <p class="section-desc">
+          현재 여름비와 함께하고 있는 길드원들을 한눈에 볼 수 있는 공간이에요.
+        </p>
+      </div>
+
+      <div class="member-grid">
+        <!-- 🔹 겸지니 카드 (본케 + 부케) -->
+        <article class="member-card">
+          <div class="member-inner">
+            <div class="member-header">
+              <div class="member-main">
+                <div class="member-avatar">🏹</div>
+                <div>
+                  <div class="member-name">겸지니 <span style="font-size:11px;color:#64748b;">(본케)</span></div>
+                  <div class="member-sub">조쏘, 뚜뚜꼬쨩 (부케)</div>
+                </div>
+              </div>
+              <div class="member-tag">궁수 · Range DPS</div>
+            </div>
+
+            <div class="member-body">
+              <div><span class="member-label">선호 나이</span>15살 이후!</div>
+              <div><span class="member-label">현실 직업</span>사무직 (금융) <span style="font-size:11px;color:#e11d48;">_ 쉿, 비밀!</span></div>
+              <div><span class="member-label">좋아하는 것</span>10개월 차 푸들 <b>뚜뚜</b> 🐩</div>
+              <div><span class="member-label">싫어하는 것</span>딱히 없어요 🙂</div>
+            </div>
+
+            <div class="member-footer">
+              <div class="member-chip-row">
+                <span class="member-chip">#장거리 딜러</span>
+                <span class="member-chip">#강아지 집사</span>
+                <span class="member-chip">#업무 모드는 비밀</span>
+              </div>
+              <span>Online · Off 둘 다 소중하게 ☁</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 👉 다른 길드원 추가하고 싶을 때는
+             위의 <article class="member-card"> ~ </article> 를 그대로 복사해서
+             정보만 바꿔주면 돼요. -->
+      </div>
+    </section>
+
+    <footer>
+      <div class="rainbow-line"></div>
+      <div>© 2025 여름비 길드 · All rights reserved.</div>
+      <div style="margin-top:4px;">제작 · 디자인 : <b>너 + ChatGPT</b></div>
+    </footer>
+  </main>
+</body>
+</html>
