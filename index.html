@@ -353,18 +353,20 @@
     /* 길드원 소개 */
     .member-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr)); /* 한 줄에 2장 */
+      gap: 18px;
+      align-items: stretch;
     }
 
     .member-card {
       position: relative;
-      padding: 14px 14px 13px;
+      padding: 16px 16px 14px;
       border-radius: var(--radius-lg);
       background: rgba(255, 255, 255, 0.98);
       border: 1px solid var(--border-soft);
       box-shadow: 0 10px 25px rgba(148, 163, 184, 0.35);
       overflow: hidden;
+      height: 100%;
     }
 
     .member-card::before {
@@ -379,6 +381,9 @@
     .member-inner {
       position: relative;
       z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
     .member-header {
@@ -396,8 +401,8 @@
     }
 
     .member-avatar {
-      width: 42px;
-      height: 42px;
+      width: 52px;
+      height: 52px;
       border-radius: 999px;
       background: radial-gradient(circle at top, #bfdbfe, #ffffff);
       border: 2px solid rgba(125, 211, 252, 0.9);
@@ -405,7 +410,7 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      font-size: 20px;
+      font-size: 22px;
       flex-shrink: 0;
     }
 
@@ -438,9 +443,9 @@
 
     .member-body {
       font-size: 12px;
-      margin-top: 4px;
+      margin-top: 6px;
       display: grid;
-      gap: 2px;
+      gap: 3px;
     }
 
     .member-label {
@@ -450,7 +455,7 @@
     }
 
     .member-footer {
-      margin-top: 8px;
+      margin-top: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -470,6 +475,48 @@
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.9);
       border: 1px solid rgba(191, 219, 254, 0.9);
+    }
+
+    /* 🐶 겸지니 강아지 스티커 */
+    .member-sticker {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      transform: rotate(-8deg);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .member-sticker-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 999px;
+      padding: 3px;
+      background: radial-gradient(circle at top, #fef3c7, #fee2e2);
+      box-shadow:
+        0 6px 14px rgba(15, 23, 42, 0.25),
+        0 0 0 2px rgba(255, 255, 255, 0.9);
+    }
+
+    .member-sticker-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 999px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .member-sticker-label {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #0f172a;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18);
     }
 
     footer {
@@ -506,6 +553,10 @@
 
       .hero-text h1 {
         font-size: 22px;
+      }
+
+      .member-grid {
+        grid-template-columns: minmax(0, 1fr); /* 모바일에선 한 줄에 1장 */
       }
     }
   </style>
@@ -555,7 +606,7 @@
       </div>
 
       <div class="hero-image">
-        <!-- 👉 여름비전체길드원.jpg를 여러 위치에서 찾는 이미지 -->
+        <!-- 여름비전체길드원.jpg -->
         <img
           id="heroImage"
           src="여름비전체길드원.jpg"
@@ -641,17 +692,17 @@
       </div>
 
       <div class="member-grid">
-        <!-- 🔹 겸지니 카드 (본케 + 부케) -->
+        <!-- 겸지니 카드 -->
         <article class="member-card">
           <div class="member-inner">
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <!-- 👉 겸지니.png를 여러 위치에서 찾는 이미지 -->
                   <img
                     src="겸지니.png"
                     alt="겸지니 프로필 이미지"
                     class="member-avatar-img"
+                    data-base="겸지니"
                     onerror="memberFallback(this, 0)"
                   />
                 </div>
@@ -678,12 +729,67 @@
               </div>
               <span>Online · Off 둘 다 소중하게 ☁</span>
             </div>
+
+            <!-- 🐶 뚜뚜 스티커 -->
+            <div class="member-sticker">
+              <div class="member-sticker-circle">
+                <img
+                  src="뚜뚜.png"
+                  alt="뚜뚜"
+                  class="member-sticker-img"
+                  data-base="뚜뚜"
+                  onerror="memberFallback(this, 0)"
+                />
+              </div>
+              <div class="member-sticker-label">뚜뚜</div>
+            </div>
           </div>
         </article>
 
-        <!-- 👉 다른 길드원 추가하고 싶을 때는
-             위의 <article class="member-card"> ~ </article> 를 그대로 복사해서
-             정보만 바꿔주면 돼요. -->
+        <!-- 시아핑 카드 -->
+        <article class="member-card">
+          <div class="member-inner">
+            <div class="member-header">
+              <div class="member-main">
+                <div class="member-avatar">
+                  <img
+                    src="시아핑.png"
+                    alt="시아핑 프로필 이미지"
+                    class="member-avatar-img"
+                    data-base="시아핑"
+                    onerror="memberFallback(this, 0)"
+                  />
+                </div>
+                <div>
+                  <div class="member-name">시아핑 <span style="font-size:11px;color:#64748b;">(본캐)</span></div>
+                  <div class="member-sub">
+                    말랑말랑시아핑 · 말랑콩떡시아핑<br />
+                    말랑찰떡시아핑 · 말랑쫀떡시아핑 (부캐's)
+                  </div>
+                </div>
+              </div>
+              <div class="member-tag">음유시인 · Bard 🎵</div>
+            </div>
+
+            <div class="member-body">
+              <div><span class="member-label">선호 나이</span>10살</div>
+              <div><span class="member-label">현실 직업</span>주부</div>
+              <div><span class="member-label">좋아하는 것</span>수다, 연주하기, 온나노코, 애니 🎶</div>
+              <div><span class="member-label">싫어하는 것</span>바선생 🪳 (절대 사절)</div>
+            </div>
+
+            <div class="member-footer">
+              <div class="member-chip-row">
+                <span class="member-chip">#음유시인</span>
+                <span class="member-chip">#수다쟁이</span>
+                <span class="member-chip">#온나노코 · 애니러버</span>
+              </div>
+              <span>연주 + 수다로 분위기 메이커 🎵</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 다음 길드원 카드들은 여기 아래에 article을 복붙해서 추가하면 돼요 -->
       </div>
     </section>
 
@@ -696,7 +802,7 @@
 
   <!-- 이미지 경로 자동 fallback 스크립트 -->
   <script>
-    // 여름비전체길드원.jpg를 여러 경로에서 찾아보기
+    // 여름비전체길드원.jpg 여러 경로 시도
     function heroFallback(img, step) {
       const paths = [
         "여름비전체길드원.jpg",
@@ -711,13 +817,14 @@
       }
     }
 
-    // 겸지니.png를 여러 경로에서 찾아보기
+    // 멤버/스티커 공통 fallback (data-base 기준)
     function memberFallback(img, step) {
+      const base = img.getAttribute("data-base") || "";
       const paths = [
-        "겸지니.png",
-        "./겸지니.png",
-        "images/겸지니.png",
-        "img/겸지니.png"
+        base + ".png",
+        "./" + base + ".png",
+        "images/" + base + ".png",
+        "img/" + base + ".png"
       ];
       const next = step + 1;
       if (next < paths.length) {
