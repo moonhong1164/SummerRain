@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- VERSION: 3 -->
   <title>☔ 여름비 길드 라운지</title>
   <style>
     :root {
@@ -353,7 +354,7 @@
     /* 길드원 소개 */
     .member-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr)); /* 한 줄에 2장 */
+      grid-template-columns: repeat(2, minmax(0, 1fr)); /* 한 줄에 2명 */
       gap: 18px;
       align-items: stretch;
     }
@@ -481,7 +482,49 @@
       border: 1px solid rgba(191, 219, 254, 0.9);
     }
 
-    /* 🏷 역할 배지 (부길드장 전용) */
+    /* 🐶 겸지니 강아지 스티커 */
+    .member-sticker {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      transform: rotate(-8deg);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .member-sticker-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 999px;
+      padding: 3px;
+      background: radial-gradient(circle at top, #fef3c7, #fee2e2);
+      box-shadow:
+        0 6px 14px rgba(15, 23, 42, 0.25),
+        0 0 0 2px rgba(255, 255, 255, 0.9);
+    }
+
+    .member-sticker-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 999px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .member-sticker-label {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #0f172a;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18);
+    }
+
+    /* 🏷 역할 배지 (부길드장) */
     .role-badge {
       display: inline-flex;
       align-items: center;
@@ -537,7 +580,7 @@
       }
 
       .member-grid {
-        grid-template-columns: minmax(0, 1fr); /* 모바일에선 한 줄에 1장 */
+        grid-template-columns: minmax(0, 1fr); /* 모바일 한 줄 1명 */
       }
     }
   </style>
@@ -817,8 +860,6 @@
             </div>
           </div>
         </article>
-
-        <!-- 앞으로 길드원 더 생기면 여기 아래에 article 복붙해서 추가하면 됨 -->
       </div>
     </section>
 
