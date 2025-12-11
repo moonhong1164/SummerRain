@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- VERSION: 4 -->
+  <!-- VERSION: 6 -->
   <title>☔ 여름비 길드 라운지</title>
   <style>
     :root {
@@ -398,13 +398,13 @@
     .member-main {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
-    /* 🔼 여기만 키웠어: 캐릭터 사진 크기 */
+    /* 캐릭터 사진 크게: 110x110 */
     .member-avatar {
-      width: 80px;
-      height: 80px;
+      width: 110px;
+      height: 110px;
       border-radius: 999px;
       background: radial-gradient(circle at top, #bfdbfe, #ffffff);
       border: 2px solid rgba(125, 211, 252, 0.9);
@@ -412,7 +412,7 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      font-size: 28px;
+      font-size: 32px;
       flex-shrink: 0;
     }
 
@@ -483,11 +483,11 @@
       border: 1px solid rgba(191, 219, 254, 0.9);
     }
 
-    /* 🐶 겸지니 강아지 스티커 */
+    /* 🐶 겸지니 강아지 스티커 - 위치 살짝 위로 */
     .member-sticker {
       position: absolute;
       right: 10px;
-      bottom: 10px;
+      bottom: 40px; /* 기존 10px → 40px */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -525,7 +525,7 @@
       box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18);
     }
 
-    /* 🏷 역할 배지 (부길드장) */
+    /* 🏷 역할 배지 */
     .role-badge {
       display: inline-flex;
       align-items: center;
@@ -542,6 +542,13 @@
       border: 1px solid rgba(59, 130, 246, 0.7);
       color: #1d4ed8;
       box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+    }
+
+    .role-badge-master {
+      background: rgba(244, 114, 182, 0.10);
+      border: 1px solid rgba(236, 72, 153, 0.85);
+      color: #be185d;
+      box-shadow: 0 2px 6px rgba(236, 72, 153, 0.25);
     }
 
     footer {
@@ -717,6 +724,52 @@
       </div>
 
       <div class="member-grid">
+
+        <!-- 👑 길드마스터 마리앙르 -->
+        <article class="member-card">
+          <div class="member-inner">
+            <div class="member-header">
+              <div class="member-main">
+                <div class="member-avatar">
+                  <img
+                    src="마리앙르.png"
+                    alt="마리앙르 프로필 이미지"
+                    class="member-avatar-img"
+                    data-base="마리앙르"
+                    onerror="memberFallback(this, 0)"
+                  />
+                </div>
+                <div>
+                  <div class="member-name">
+                    마리앙르
+                    <span class="role-badge role-badge-master">👑 길드장</span>
+                  </div>
+                  <div class="member-sub">
+                    아이디와 직업 말고 모든 것이 비밀에 싸인 여름비의 길드마스터
+                  </div>
+                </div>
+              </div>
+              <div class="member-tag">석궁사수 · Guild Master 🎯</div>
+            </div>
+
+            <div class="member-body">
+              <div><span class="member-label">선호 나이</span>???</div>
+              <div><span class="member-label">현실 직업</span>비밀</div>
+              <div><span class="member-label">좋아하는 것</span>비밀</div>
+              <div><span class="member-label">싫어하는 것</span>비밀</div>
+            </div>
+
+            <div class="member-footer">
+              <div class="member-chip-row">
+                <span class="member-chip">#길드마스터</span>
+                <span class="member-chip">#석궁사수</span>
+                <span class="member-chip">#비밀투성이</span>
+              </div>
+              <span>여름비의 중심, 하지만 비밀스러운 존재…</span>
+            </div>
+          </div>
+        </article>
+
         <!-- ⭐ 부길드장 크로스퍼 -->
         <article class="member-card">
           <div class="member-inner">
@@ -803,7 +856,7 @@
               <span>Online · Off 둘 다 소중하게 ☁</span>
             </div>
 
-            <!-- 🐶 뚜뚜 스티커 -->
+            <!-- 🐶 뚜뚜 스티커 (위로 올림) -->
             <div class="member-sticker">
               <div class="member-sticker-circle">
                 <img
