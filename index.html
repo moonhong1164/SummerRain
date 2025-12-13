@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- VERSION: 7 + members -->
+  <!-- VERSION: Long + GM Frame + Jna Job -->
   <title>☔ 여름비 길드 라운지</title>
   <style>
     :root {
@@ -27,11 +27,7 @@
       );
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -41,10 +37,7 @@
       line-height: 1.6;
     }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+    a { text-decoration: none; color: inherit; }
 
     header {
       position: sticky;
@@ -262,9 +255,7 @@
     }
 
     /* 섹션 공통 */
-    section {
-      margin-top: 26px;
-    }
+    section { margin-top: 26px; }
 
     .section-header {
       display: flex;
@@ -430,7 +421,7 @@
       transform-origin: center;
     }
 
-    /* 🔍 J나도 확대 */
+    /* 🔍 J나도 살짝 확대 */
     .member-avatar-img[data-base="J나"] {
       transform: scale(1.25);
       transform-origin: center;
@@ -563,6 +554,17 @@
       box-shadow: 0 2px 6px rgba(236, 72, 153, 0.25);
     }
 
+    /* ✅ 추가: 👑 길드장 전용 프레임 (마리앙르에만 적용) */
+    .guildmaster-frame {
+      border: 3px solid transparent;
+      background:
+        linear-gradient(rgba(255,255,255,0.98), rgba(255,255,255,0.98)) padding-box,
+        linear-gradient(135deg, #f472b6, #a855f7, #38bdf8) border-box;
+      box-shadow:
+        0 0 0 3px rgba(244,114,182,0.14),
+        0 14px 30px rgba(168,85,247,0.28);
+    }
+
     footer {
       margin-top: 30px;
       padding-top: 14px;
@@ -582,26 +584,11 @@
     }
 
     @media (max-width: 768px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .guild-card {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .nav-links {
-        gap: 8px;
-        font-size: 13px;
-      }
-
-      .hero-text h1 {
-        font-size: 22px;
-      }
-
-      .member-grid {
-        grid-template-columns: minmax(0, 1fr); /* 모바일 한 줄 1명 */
-      }
+      .hero { grid-template-columns: minmax(0, 1fr); }
+      .guild-card { grid-template-columns: minmax(0, 1fr); }
+      .nav-links { gap: 8px; font-size: 13px; }
+      .hero-text h1 { font-size: 22px; }
+      .member-grid { grid-template-columns: minmax(0, 1fr); } /* 모바일 한 줄 1명 */
     }
   </style>
 </head>
@@ -650,7 +637,6 @@
       </div>
 
       <div class="hero-image">
-        <!-- 여름비전체길드원.jpg -->
         <img
           id="heroImage"
           src="여름비전체길드원.jpg"
@@ -737,8 +723,8 @@
 
       <div class="member-grid">
 
-        <!-- 👑 길드마스터 마리앙르 -->
-        <article class="member-card">
+        <!-- 👑 길드마스터 마리앙르 (✅ 길드장 프레임 적용) -->
+        <article class="member-card guildmaster-frame">
           <div class="member-inner">
             <div class="member-header">
               <div class="member-main">
@@ -868,7 +854,7 @@
               <span>Online · Off 둘 다 소중하게 ☁</span>
             </div>
 
-            <!-- 🐶 뚜뚜 스티커 -->
+            <!-- 🐶 뚜뚜 스티커 (위로 올림 유지) -->
             <div class="member-sticker">
               <div class="member-sticker-circle">
                 <img
@@ -1009,7 +995,7 @@
           </div>
         </article>
 
-        <!-- 🧊 J나 카드 -->
+        <!-- 🧊 J나 카드 (✅ 직업 수정: 빙결술사 + 영어) -->
         <article class="member-card">
           <div class="member-inner">
             <div class="member-header">
@@ -1030,7 +1016,7 @@
                   </div>
                 </div>
               </div>
-              <div class="member-tag">빙결 / 힐러 / 궁수 · Hybrid Support 🎯</div>
+              <div class="member-tag">빙결술사 · Ice Sorcerer ❄️</div>
             </div>
 
             <div class="member-body">
@@ -1042,11 +1028,11 @@
 
             <div class="member-footer">
               <div class="member-chip-row">
-                <span class="member-chip">#빙결</span>
-                <span class="member-chip">#힐러</span>
-                <span class="member-chip">#궁수</span>
+                <span class="member-chip">#빙결술사</span>
+                <span class="member-chip">#재미추구</span>
+                <span class="member-chip">#꼬맹이5개월</span>
               </div>
-              <span>재미 + 꼬맹이 버프로 살아가는 하이브리드 서포터 🎈</span>
+              <span>차갑게 얼리고, 현실은 비밀로… ❄️</span>
             </div>
           </div>
         </article>
@@ -1063,7 +1049,6 @@
 
   <!-- 이미지 경로 자동 fallback 스크립트 -->
   <script>
-    // 여름비전체길드원.jpg 여러 경로 시도
     function heroFallback(img, step) {
       const paths = [
         "여름비전체길드원.jpg",
@@ -1078,7 +1063,6 @@
       }
     }
 
-    // 멤버/스티커 공통 fallback (data-base 기준)
     function memberFallback(img, step) {
       const base = img.getAttribute("data-base") || "";
       const paths = [
