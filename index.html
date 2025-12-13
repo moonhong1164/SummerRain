@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- VERSION: Long + GM Frame + Jna Job + Hyeolhyu (png) + Binaeum Job + BaldLineEmpty -->
+  <!-- VERSION: Long + GM Frame + Jna Job + Hyeolhyu (png) + Binaeum Job -->
   <title>☔ 여름비 길드 라운지</title>
   <style>
     :root {
@@ -27,7 +27,11 @@
       );
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -119,6 +123,7 @@
       padding: 20px 16px 40px;
     }
 
+    /* Hero / 대문 영역 */
     .hero {
       margin-top: 18px;
       padding: 24px 20px 26px;
@@ -137,7 +142,10 @@
       align-items: center;
     }
 
-    .hero-text h1 { font-size: 26px; margin-bottom: 6px; }
+    .hero-text h1 {
+      font-size: 26px;
+      margin-bottom: 6px;
+    }
 
     .hero-text h1 span {
       background-image: var(--rainbow);
@@ -212,7 +220,10 @@
       transition: background 0.12s ease, transform 0.12s ease;
     }
 
-    .btn-ghost:hover { background: #ffffff; transform: translateY(-1px); }
+    .btn-ghost:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+    }
 
     .hero-image {
       position: relative;
@@ -247,6 +258,7 @@
       color: #e5e7eb;
     }
 
+    /* 섹션 공통 */
     section { margin-top: 26px; }
 
     .section-header {
@@ -273,8 +285,12 @@
       color: var(--text-sub);
     }
 
-    .section-desc { font-size: 13px; color: var(--text-sub); }
+    .section-desc {
+      font-size: 13px;
+      color: var(--text-sub);
+    }
 
+    /* 길드 소개 카드 */
     .guild-card {
       background: rgba(255, 255, 255, 0.98);
       border-radius: var(--radius-lg);
@@ -287,7 +303,12 @@
       font-size: 13px;
     }
 
-    .guild-pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+    .guild-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
 
     .guild-pill {
       padding: 3px 8px;
@@ -300,7 +321,11 @@
 
     .guild-card h3 { font-size: 15px; margin-bottom: 4px; }
 
-    .guild-list { padding-left: 16px; margin-top: 4px; color: var(--text-sub); }
+    .guild-list {
+      padding-left: 16px;
+      margin-top: 4px;
+      color: var(--text-sub);
+    }
 
     .guild-side-box {
       border-radius: var(--radius-lg);
@@ -311,11 +336,17 @@
       color: var(--text-sub);
     }
 
-    .guild-side-row { display: flex; justify-content: space-between; gap: 10px; margin-top: 4px; }
+    .guild-side-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 4px;
+    }
 
+    /* 길드원 소개 */
     .member-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr)); /* 한 줄에 2명 */
       gap: 18px;
       align-items: stretch;
     }
@@ -356,8 +387,13 @@
       margin-bottom: 8px;
     }
 
-    .member-main { display: flex; align-items: center; gap: 14px; }
+    .member-main {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
+    /* 캐릭터 사진 크게: 110x110 */
     .member-avatar {
       width: 110px;
       height: 110px;
@@ -380,8 +416,17 @@
       display: block;
     }
 
-    .member-avatar-img[data-base="비내음"] { transform: scale(1.25); transform-origin: center; }
-    .member-avatar-img[data-base="J나"] { transform: scale(1.25); transform-origin: center; }
+    /* 🔍 비내음만 살짝 확대 */
+    .member-avatar-img[data-base="비내음"] {
+      transform: scale(1.25);
+      transform-origin: center;
+    }
+
+    /* 🔍 J나도 살짝 확대 */
+    .member-avatar-img[data-base="J나"] {
+      transform: scale(1.25);
+      transform-origin: center;
+    }
 
     .member-name {
       font-size: 15px;
@@ -403,7 +448,12 @@
       color: var(--text-sub);
     }
 
-    .member-body { font-size: 12px; margin-top: 6px; display: grid; gap: 3px; }
+    .member-body {
+      font-size: 12px;
+      margin-top: 6px;
+      display: grid;
+      gap: 3px;
+    }
 
     .member-label { font-weight: 600; margin-right: 4px; color: #0f172a; }
 
@@ -426,6 +476,7 @@
       border: 1px solid rgba(191, 219, 254, 0.9);
     }
 
+    /* 🐶 겸지니 강아지 스티커 - 위치 살짝 위로 */
     .member-sticker {
       position: absolute;
       right: 10px;
@@ -450,7 +501,13 @@
         0 0 0 2px rgba(255, 255, 255, 0.9);
     }
 
-    .member-sticker-img { width: 100%; height: 100%; border-radius: 999px; object-fit: cover; display: block; }
+    .member-sticker-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 999px;
+      object-fit: cover;
+      display: block;
+    }
 
     .member-sticker-label {
       font-size: 10px;
@@ -461,6 +518,7 @@
       box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18);
     }
 
+    /* 🏷 역할 배지 */
     .role-badge {
       display: inline-flex;
       align-items: center;
@@ -486,6 +544,7 @@
       box-shadow: 0 2px 6px rgba(236, 72, 153, 0.25);
     }
 
+    /* 👑 길드장 전용 프레임 (마리앙르에만 적용) */
     .guildmaster-frame {
       border: 3px solid transparent;
       background:
@@ -519,7 +578,7 @@
       .guild-card { grid-template-columns: minmax(0, 1fr); }
       .nav-links { gap: 8px; font-size: 13px; }
       .hero-text h1 { font-size: 22px; }
-      .member-grid { grid-template-columns: minmax(0, 1fr); }
+      .member-grid { grid-template-columns: minmax(0, 1fr); } /* 모바일 한 줄 1명 */
     }
   </style>
 </head>
@@ -540,6 +599,7 @@
   </header>
 
   <main id="top">
+    <!-- Hero / 대문 -->
     <section class="hero">
       <div class="hero-text">
         <h1><span>여름비 길드</span>에 오신 걸 환영합니다 ☔</h1>
@@ -567,11 +627,19 @@
       </div>
 
       <div class="hero-image">
-        <img id="heroImage" src="여름비전체길드원.jpg" alt="여름비 전체 길드원" onerror="heroFallback(this, 0)" />
-        <div class="hero-image-note">여름비 전체 길드원 사진</div>
+        <img
+          id="heroImage"
+          src="여름비전체길드원.jpg"
+          alt="여름비 전체 길드원"
+          onerror="heroFallback(this, 0)"
+        />
+        <div class="hero-image-note">
+          여름비 전체 길드원 사진
+        </div>
       </div>
     </section>
 
+    <!-- 길드 소개 -->
     <section id="guild">
       <div class="section-header">
         <div class="section-title">
@@ -631,6 +699,7 @@
       </div>
     </section>
 
+    <!-- 길드원 소개 -->
     <section id="members">
       <div class="section-header">
         <div class="section-title">
@@ -650,14 +719,22 @@
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img src="마리앙르.png" alt="마리앙르 프로필 이미지" class="member-avatar-img" data-base="마리앙르" onerror="memberFallback(this, 0)" />
+                  <img
+                    src="마리앙르.png"
+                    alt="마리앙르 프로필 이미지"
+                    class="member-avatar-img"
+                    data-base="마리앙르"
+                    onerror="memberFallback(this, 0)"
+                  />
                 </div>
                 <div>
                   <div class="member-name">
                     마리앙르
                     <span class="role-badge role-badge-master">👑 길드장</span>
                   </div>
-                  <div class="member-sub">아이디와 직업 말고 모든 것이 비밀에 싸인 여름비의 길드마스터</div>
+                  <div class="member-sub">
+                    아이디와 직업 말고 모든 것이 비밀에 싸인 여름비의 길드마스터
+                  </div>
                 </div>
               </div>
               <div class="member-tag">석궁사수 · Crossbow Marksman 🎯</div>
@@ -687,14 +764,22 @@
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img src="크로스퍼.png" alt="크로스퍼 프로필 이미지" class="member-avatar-img" data-base="크로스퍼" onerror="memberFallback(this, 0)" />
+                  <img
+                    src="크로스퍼.png"
+                    alt="크로스퍼 프로필 이미지"
+                    class="member-avatar-img"
+                    data-base="크로스퍼"
+                    onerror="memberFallback(this, 0)"
+                  />
                 </div>
                 <div>
                   <div class="member-name">
                     크로스퍼
                     <span class="role-badge role-badge-deputy">★ 부길드장</span>
                   </div>
-                  <div class="member-sub">수라미, 크로슈 (부캐)</div>
+                  <div class="member-sub">
+                    수라미, 크로슈 (부캐)
+                  </div>
                 </div>
               </div>
               <div class="member-tag">검술 · Sword Master ⚔️</div>
@@ -702,7 +787,10 @@
 
             <div class="member-body">
               <div><span class="member-label">선호 나이</span>20살</div>
-              <div><span class="member-label">현실 직업</span>자동차 관련 <span style="color:#e11d48;font-size:11px;">(비밀…)</span></div>
+              <div>
+                <span class="member-label">현실 직업</span>
+                자동차 관련 <span style="color:#e11d48;font-size:11px;">(비밀…)</span>
+              </div>
               <div><span class="member-label">좋아하는 것</span>럭키~ 🍀</div>
               <div><span class="member-label">싫어하는 것</span>언럭키~ 💦</div>
             </div>
@@ -724,7 +812,13 @@
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img src="겸지니.png" alt="겸지니 프로필 이미지" class="member-avatar-img" data-base="겸지니" onerror="memberFallback(this, 0)" />
+                  <img
+                    src="겸지니.png"
+                    alt="겸지니 프로필 이미지"
+                    class="member-avatar-img"
+                    data-base="겸지니"
+                    onerror="memberFallback(this, 0)"
+                  />
                 </div>
                 <div>
                   <div class="member-name">겸지니 <span style="font-size:11px;color:#64748b;">(본케)</span></div>
@@ -750,9 +844,16 @@
               <span>Online · Off 둘 다 소중하게 ☁</span>
             </div>
 
+            <!-- 🐶 뚜뚜 스티커 -->
             <div class="member-sticker">
               <div class="member-sticker-circle">
-                <img src="뚜뚜.png" alt="뚜뚜" class="member-sticker-img" data-base="뚜뚜" onerror="memberFallback(this, 0)" />
+                <img
+                  src="뚜뚜.png"
+                  alt="뚜뚜"
+                  class="member-sticker-img"
+                  data-base="뚜뚜"
+                  onerror="memberFallback(this, 0)"
+                />
               </div>
               <div class="member-sticker-label">뚜뚜</div>
             </div>
@@ -765,7 +866,13 @@
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img src="시아핑.png" alt="시아핑 프로필 이미지" class="member-avatar-img" data-base="시아핑" onerror="memberFallback(this, 0)" />
+                  <img
+                    src="시아핑.png"
+                    alt="시아핑 프로필 이미지"
+                    class="member-avatar-img"
+                    data-base="시아핑"
+                    onerror="memberFallback(this, 0)"
+                  />
                 </div>
                 <div>
                   <div class="member-name">시아핑 <span style="font-size:11px;color:#64748b;">(본캐)</span></div>
@@ -802,13 +909,22 @@
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img src="비내음.png" alt="비내음 프로필 이미지" class="member-avatar-img" data-base="비내음" onerror="memberFallback(this, 0)" />
+                  <img
+                    src="비내음.png"
+                    alt="비내음 프로필 이미지"
+                    class="member-avatar-img"
+                    data-base="비내음"
+                    onerror="memberFallback(this, 0)"
+                  />
                 </div>
                 <div>
                   <div class="member-name">비내음 <span style="font-size:11px;color:#64748b;">(본캐)</span></div>
-                  <div class="member-sub">cover, feat (부캐)</div>
+                  <div class="member-sub">
+                    cover, feat (부캐)
+                  </div>
                 </div>
               </div>
+              <!-- ✅ 변경: 여름비 길드원 → 빙결술사 -->
               <div class="member-tag">빙결술사 · Ice Sorcerer ❄️</div>
             </div>
 
@@ -830,17 +946,23 @@
           </div>
         </article>
 
-        <!-- 🥊 빡빡이아조씨 카드 (✅ 부캐란 비움) -->
+        <!-- 🥊 빡빡이아조씨 카드 -->
         <article class="member-card">
           <div class="member-inner">
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img src="빡빡이아조씨.png" alt="빡빡이아조씨 프로필 이미지" class="member-avatar-img" data-base="빡빡이아조씨" onerror="memberFallback(this, 0)" />
+                  <img
+                    src="빡빡이아조씨.png"
+                    alt="빡빡이아조씨 프로필 이미지"
+                    class="member-avatar-img"
+                    data-base="빡빡이아조씨"
+                    onerror="memberFallback(this, 0)"
+                  />
                 </div>
                 <div>
                   <div class="member-name">빡빡이아조씨</div>
-                  <div class="member-sub">&nbsp;</div>
+                  <div class="member-sub">선호 나이 · 현실 직업은 비밀</div>
                 </div>
               </div>
               <div class="member-tag">격투가 · Fighter 🥊</div>
@@ -870,11 +992,19 @@
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img src="J나.PNG" alt="J나 프로필 이미지" class="member-avatar-img" data-base="J나" onerror="memberFallback(this, 0)" />
+                  <img
+                    src="J나.PNG"
+                    alt="J나 프로필 이미지"
+                    class="member-avatar-img"
+                    data-base="J나"
+                    onerror="memberFallback(this, 0)"
+                  />
                 </div>
                 <div>
                   <div class="member-name">J나</div>
-                  <div class="member-sub">J나힐 · 실바나S</div>
+                  <div class="member-sub">
+                    J나힐 · 실바나S
+                  </div>
                 </div>
               </div>
               <div class="member-tag">빙결술사 · Ice Sorcerer ❄️</div>
@@ -898,16 +1028,24 @@
           </div>
         </article>
 
-        <!-- 🔥 혈휴 카드 -->
+        <!-- 🔥 혈휴 카드 (파일명 .png로 변경) -->
         <article class="member-card">
           <div class="member-inner">
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img src="혈휴님.png" alt="혈휴 프로필 이미지" class="member-avatar-img" data-base="혈휴님" onerror="memberFallback(this, 0)" />
+                  <img
+                    src="혈휴님.png"
+                    alt="혈휴 프로필 이미지"
+                    class="member-avatar-img"
+                    data-base="혈휴님"
+                    onerror="memberFallback(this, 0)"
+                  />
                 </div>
                 <div>
-                  <div class="member-name">혈휴 <span style="font-size:11px;color:#64748b;">(본캐)</span></div>
+                  <div class="member-name">
+                    혈휴 <span style="font-size:11px;color:#64748b;">(본캐)</span>
+                  </div>
                   <div class="member-sub">혈리아 (부캐)</div>
                 </div>
               </div>
@@ -942,6 +1080,7 @@
     </footer>
   </main>
 
+  <!-- 이미지 경로 자동 fallback 스크립트 -->
   <script>
     function heroFallback(img, step) {
       const paths = [
