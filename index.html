@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- VERSION: Single Main + PhotoBoard (uid path) + Owner-only Delete + New Member 허츄핑 + New Member 운메이 + New Member 악뮤(jpg) -->
+  <!-- VERSION: Single Main + PhotoBoard (uid path) + Owner-only Delete + New Member 허츄핑 + New Member 운메이 + New Member 악뮤(jpg) + New Member 철권(jpg) -->
   <title>☔ 여름비 길드 라운지</title>
   <style>
     :root {
@@ -894,19 +894,13 @@
           </div>
         </article>
 
-        <!-- ✅ NEW: 악뮤 (이미지 jpg) -->
+        <!-- 악뮤 (jpg) -->
         <article class="member-card">
           <div class="member-inner">
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img
-                    src="악뮤.jpg"
-                    alt="악뮤"
-                    class="member-avatar-img"
-                    data-base="악뮤"
-                    onerror="memberFallbackJpg(this, 0)"
-                  />
+                  <img src="악뮤.jpg" alt="악뮤" class="member-avatar-img" data-base="악뮤" onerror="memberFallbackJpg(this, 0)" />
                 </div>
                 <div>
                   <div class="member-name">악뮤 <span style="font-size:11px;color:#64748b;">(본캐)</span></div>
@@ -931,6 +925,46 @@
                 <span class="member-chip">#달다구리</span>
               </div>
               <span>분쟁 없이 오래오래 ☔</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ✅ NEW: 철권 (jpg) -->
+        <article class="member-card">
+          <div class="member-inner">
+            <div class="member-header">
+              <div class="member-main">
+                <div class="member-avatar">
+                  <img
+                    src="철권.jpg"
+                    alt="철권"
+                    class="member-avatar-img"
+                    data-base="철권"
+                    onerror="memberFallbackJpg(this, 0)"
+                  />
+                </div>
+                <div>
+                  <div class="member-name">철권</div>
+                  <div class="member-sub">&nbsp;</div>
+                </div>
+              </div>
+              <div class="member-tag">격투가 · Fighter 🥊</div>
+            </div>
+
+            <div class="member-body">
+              <div><span class="member-label">선호 나이</span>상관없음</div>
+              <div><span class="member-label">현실 직업</span>회사원</div>
+              <div><span class="member-label">좋아하는 것</span>뮤</div>
+              <div><span class="member-label">싫어하는 것</span>개념없는사람</div>
+            </div>
+
+            <div class="member-footer">
+              <div class="member-chip-row">
+                <span class="member-chip">#격투가</span>
+                <span class="member-chip">#뮤</span>
+                <span class="member-chip">#정의구현</span>
+              </div>
+              <span>한 방에 정리하는 스타일 🥊</span>
             </div>
           </div>
         </article>
@@ -1014,7 +1048,7 @@
       if (next < paths.length) { img.onerror = function(){ memberFallback(img,next); }; img.src = paths[next]; }
     }
 
-    // ✅ jpg 전용 fallback (악뮤)
+    // jpg 전용 fallback
     function memberFallbackJpg(img, step) {
       const base = img.getAttribute("data-base") || "";
       const paths = [base+".jpg","./"+base+".jpg","images/"+base+".jpg","img/"+base+".jpg"];
