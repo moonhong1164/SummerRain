@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- VERSION: Single Main + PhotoBoard (uid path) + Owner-only Delete + New Member 허츄핑 + New Member 운메이 -->
+  <!-- VERSION: Single Main + PhotoBoard (uid path) + Owner-only Delete + New Member 허츄핑 + New Member 운메이 + New Member 악뮤(jpg) -->
   <title>☔ 여름비 길드 라운지</title>
   <style>
     :root {
@@ -449,7 +449,6 @@
     </div>
   </header>
 
-  <!-- ✅ main은 딱 1개 -->
   <main id="top">
     <!-- Hero -->
     <section class="hero">
@@ -846,7 +845,6 @@
             <div class="member-body">
               <div><span class="member-label">선호 나이</span>10세 ~ 13세</div>
               <div><span class="member-label">현실 직업</span>비밀</div>
-              <!-- ✅ 변경: 낮잠 추가 -->
               <div><span class="member-label">좋아하는 것</span>하츄핑, 치이카와, 귀여운 것, 달콤한 것, 낮잠 🍬</div>
               <div><span class="member-label">싫어하는 것</span>채소 🥬</div>
             </div>
@@ -862,19 +860,13 @@
           </div>
         </article>
 
-        <!-- ✅ NEW: 운메이 (사제) -->
+        <!-- 운메이 -->
         <article class="member-card">
           <div class="member-inner">
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img
-                    src="운메이.png"
-                    alt="운메이"
-                    class="member-avatar-img"
-                    data-base="운메이"
-                    onerror="memberFallback(this, 0)"
-                  />
+                  <img src="운메이.png" alt="운메이" class="member-avatar-img" data-base="운메이" onerror="memberFallback(this, 0)" />
                 </div>
                 <div>
                   <div class="member-name">운메이 <span style="font-size:11px;color:#64748b;">(본캐)</span></div>
@@ -902,10 +894,51 @@
           </div>
         </article>
 
+        <!-- ✅ NEW: 악뮤 (이미지 jpg) -->
+        <article class="member-card">
+          <div class="member-inner">
+            <div class="member-header">
+              <div class="member-main">
+                <div class="member-avatar">
+                  <img
+                    src="악뮤.jpg"
+                    alt="악뮤"
+                    class="member-avatar-img"
+                    data-base="악뮤"
+                    onerror="memberFallbackJpg(this, 0)"
+                  />
+                </div>
+                <div>
+                  <div class="member-name">악뮤 <span style="font-size:11px;color:#64748b;">(본캐)</span></div>
+                  <div class="member-sub">메론소다하이볼, 뮤얽 (부캐)</div>
+                </div>
+              </div>
+              <div class="member-tag">힐러 · Healer 💚</div>
+            </div>
+
+            <div class="member-body">
+              <div><span class="member-label">선호 나이</span>귀여운 10살</div>
+              <div><span class="member-label">현실 직업</span>미술강사🎨</div>
+              <div><span class="member-label">좋아하는 것</span>철권이, 하늘색🩵, 수다, 귀여운것, 달다구리</div>
+              <div><span class="member-label">싫어하는 것</span>거짓말쟁이</div>
+              <div><span class="member-label">하고싶은 말</span>우리 여름비 길드는 분쟁없이 오래가쟈~🥰</div>
+            </div>
+
+            <div class="member-footer">
+              <div class="member-chip-row">
+                <span class="member-chip">#힐러</span>
+                <span class="member-chip">#하늘색🩵</span>
+                <span class="member-chip">#달다구리</span>
+              </div>
+              <span>분쟁 없이 오래오래 ☔</span>
+            </div>
+          </div>
+        </article>
+
       </div>
     </section>
 
-    <!-- 📷 사진 게시판 -->
+    <!-- 사진 게시판 -->
     <section id="board">
       <div class="section-header">
         <div class="section-title">사진 게시판 <span class="section-title-badge">Photo Board</span></div>
@@ -973,11 +1006,20 @@
       if (next < paths.length) { img.onerror = function(){ heroFallback(img,next); }; img.src = paths[next]; }
     }
 
+    // 기본 png fallback
     function memberFallback(img, step) {
       const base = img.getAttribute("data-base") || "";
       const paths = [base+".png","./"+base+".png","images/"+base+".png","img/"+base+".png"];
       const next = step + 1;
       if (next < paths.length) { img.onerror = function(){ memberFallback(img,next); }; img.src = paths[next]; }
+    }
+
+    // ✅ jpg 전용 fallback (악뮤)
+    function memberFallbackJpg(img, step) {
+      const base = img.getAttribute("data-base") || "";
+      const paths = [base+".jpg","./"+base+".jpg","images/"+base+".jpg","img/"+base+".jpg"];
+      const next = step + 1;
+      if (next < paths.length) { img.onerror = function(){ memberFallbackJpg(img,next); }; img.src = paths[next]; }
     }
   </script>
 
@@ -1213,12 +1255,8 @@
     async function deletePost(it) {
       const user = await ensureAuth();
       if (!canDelete(user.uid, it.uid)) throw new Error("No permission");
-
       await db.collection("photos").doc(it.id).delete();
-
-      if (it.storagePath) {
-        await st.ref().child(it.storagePath).delete();
-      }
+      if (it.storagePath) await st.ref().child(it.storagePath).delete();
     }
 
     window.addEventListener("DOMContentLoaded", async () => {
