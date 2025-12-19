@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- VERSION: Single Main + PhotoBoard (uid path) + Owner-only Delete -->
+  <!-- VERSION: Single Main + PhotoBoard (uid path) + Owner-only Delete + New Member 허츄핑 -->
   <title>☔ 여름비 길드 라운지</title>
   <style>
     :root {
@@ -825,6 +825,47 @@
             </div>
           </div>
         </article>
+
+        <!-- ✅ NEW: 허츄핑 (부캐란 비움, 한줄 소개: 잘부탁드립니다 : ) -->
+        <article class="member-card">
+          <div class="member-inner">
+            <div class="member-header">
+              <div class="member-main">
+                <div class="member-avatar">
+                  <img
+                    src="허츄핑.png"
+                    alt="허츄핑"
+                    class="member-avatar-img"
+                    data-base="허츄핑"
+                    onerror="memberFallback(this, 0)"
+                  />
+                </div>
+                <div>
+                  <div class="member-name">허츄핑</div>
+                  <div class="member-sub">&nbsp;</div>
+                </div>
+              </div>
+              <div class="member-tag">수도사 · Monk 🥋</div>
+            </div>
+
+            <div class="member-body">
+              <div><span class="member-label">선호 나이</span>10세 ~ 13세</div>
+              <div><span class="member-label">현실 직업</span>비밀</div>
+              <div><span class="member-label">좋아하는 것</span>하츄핑, 치이카와, 귀여운 것, 달콤한 것 🍬</div>
+              <div><span class="member-label">싫어하는 것</span>채소 🥬</div>
+            </div>
+
+            <div class="member-footer">
+              <div class="member-chip-row">
+                <span class="member-chip">#수도사</span>
+                <span class="member-chip">#귀여움최고</span>
+                <span class="member-chip">#달콤러버</span>
+              </div>
+              <span>잘부탁드립니다 : )</span>
+            </div>
+          </div>
+        </article>
+
       </div>
     </section>
 
@@ -1138,10 +1179,8 @@
       const user = await ensureAuth();
       if (!canDelete(user.uid, it.uid)) throw new Error("No permission");
 
-      // 1) Firestore 문서 삭제
       await db.collection("photos").doc(it.id).delete();
 
-      // 2) Storage 파일 삭제
       if (it.storagePath) {
         await st.ref().child(it.storagePath).delete();
       }
