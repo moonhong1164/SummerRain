@@ -3,648 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- VERSION: Long + GM Frame + Jna Job + Hyeolhyu (png) + Binaeum Job -->
-  <title>☔ 여름비 길드 라운지</title>
-  <style>
-    :root {
-      --bg: #f9fcff;
-      --card: #ffffff;
-      --sky: #7dd3fc;
-      --sky-deep: #38bdf8;
-      --text-main: #0f172a;
-      --text-sub: #64748b;
-      --border-soft: #e2e8f0;
-      --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
-      --radius-lg: 18px;
-      --radius-xl: 24px;
-      --rainbow: linear-gradient(90deg,
-        #f97373,
-        #fbbf24,
-        #34d399,
-        #38bdf8,
-        #a855f7,
-        #f472b6
-      );
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        "Noto Sans KR", sans-serif;
-      background: radial-gradient(circle at top, #e0f2fe 0, #f9fcff 45%, #ffffff 100%);
-      color: var(--text-main);
-      line-height: 1.6;
-    }
-
-    a { text-decoration: none; color: inherit; }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(16px);
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.9),
-        rgba(255, 255, 255, 0.7)
-      );
-      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-    }
-
-    .nav-inner {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 18px;
-    }
-
-    .logo-badge {
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      background-image: var(--rainbow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 6px 16px rgba(56, 189, 248, 0.45);
-      color: #ffffff;
-      font-size: 18px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 14px;
-    }
-
-    .nav-links a {
-      padding: 6px 10px;
-      border-radius: 999px;
-      color: var(--text-sub);
-      transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
-    }
-
-    .nav-links a:hover {
-      background: rgba(191, 219, 254, 0.7);
-      color: var(--text-main);
-      transform: translateY(-1px);
-    }
-
-    .nav-pill {
-      padding: 6px 14px;
-      border-radius: 999px;
-      background-image: var(--rainbow);
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 600;
-      box-shadow: 0 6px 16px rgba(96, 165, 250, 0.65);
-    }
-
-    main {
-      max-width: 1040px;
-      margin: 0 auto;
-      padding: 20px 16px 40px;
-    }
-
-    /* Hero / 대문 영역 */
-    .hero {
-      margin-top: 18px;
-      padding: 24px 20px 26px;
-      border-radius: var(--radius-xl);
-      background: linear-gradient(
-        135deg,
-        rgba(59, 130, 246, 0.10),
-        rgba(196, 181, 253, 0.12),
-        rgba(244, 114, 182, 0.14)
-      );
-      border: 1px solid rgba(191, 219, 254, 0.7);
-      box-shadow: var(--shadow-soft);
-      display: grid;
-      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
-      gap: 20px;
-      align-items: center;
-    }
-
-    .hero-text h1 {
-      font-size: 26px;
-      margin-bottom: 6px;
-    }
-
-    .hero-text h1 span {
-      background-image: var(--rainbow);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero-text p {
-      font-size: 14px;
-      color: var(--text-sub);
-      margin-bottom: 12px;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .hero-tag {
-      font-size: 12px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(191, 219, 254, 0.8);
-      color: var(--text-sub);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 4px;
-    }
-
-    .btn-primary {
-      font-size: 14px;
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      background-image: var(--rainbow);
-      color: #ffffff;
-      font-weight: 600;
-      box-shadow: 0 8px 18px rgba(96, 165, 250, 0.6);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: transform 0.12s ease, box-shadow 0.12s ease;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 22px rgba(96, 165, 250, 0.75);
-    }
-
-    .btn-ghost {
-      font-size: 14px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      cursor: pointer;
-      background: rgba(255, 255, 255, 0.85);
-      color: var(--text-sub);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.12s ease, transform 0.12s ease;
-    }
-
-    .btn-ghost:hover {
-      background: #ffffff;
-      transform: translateY(-1px);
-    }
-
-    .hero-image {
-      position: relative;
-      min-height: 180px;
-      border-radius: var(--radius-lg);
-      background: radial-gradient(circle at top, #e0f2fe, #ffffff);
-      border: 1px solid rgba(191, 219, 254, 0.8);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px;
-    }
-
-    .hero-image img {
-      max-width: 100%;
-      max-height: 260px;
-      border-radius: 16px;
-      display: block;
-      object-fit: cover;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.25);
-    }
-
-    .hero-image-note {
-      position: absolute;
-      bottom: 6px;
-      right: 10px;
-      font-size: 11px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.55);
-      color: #e5e7eb;
-    }
-
-    /* 섹션 공통 */
-    section { margin-top: 26px; }
-
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-size: 18px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .section-title-badge {
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(191, 219, 254, 0.7);
-      color: var(--text-sub);
-    }
-
-    .section-desc {
-      font-size: 13px;
-      color: var(--text-sub);
-    }
-
-    /* 길드 소개 카드 */
-    .guild-card {
-      background: rgba(255, 255, 255, 0.98);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-soft);
-      padding: 16px 16px 14px;
-      box-shadow: var(--shadow-soft);
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
-      gap: 12px;
-      font-size: 13px;
-    }
-
-    .guild-pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-
-    .guild-pill {
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(239, 246, 255, 0.9);
-      border: 1px solid rgba(191, 219, 254, 0.8);
-      font-size: 11px;
-      color: var(--text-sub);
-    }
-
-    .guild-card h3 { font-size: 15px; margin-bottom: 4px; }
-
-    .guild-list {
-      padding-left: 16px;
-      margin-top: 4px;
-      color: var(--text-sub);
-    }
-
-    .guild-side-box {
-      border-radius: var(--radius-lg);
-      border: 1px dashed rgba(148, 163, 184, 0.7);
-      background: rgba(248, 250, 252, 0.9);
-      padding: 10px 12px;
-      font-size: 12px;
-      color: var(--text-sub);
-    }
-
-    .guild-side-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-top: 4px;
-    }
-
-    /* 길드원 소개 */
-    .member-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr)); /* 한 줄에 2명 */
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    .member-card {
-      position: relative;
-      padding: 16px 16px 14px;
-      border-radius: var(--radius-lg);
-      background: rgba(255, 255, 255, 0.98);
-      border: 1px solid var(--border-soft);
-      box-shadow: 0 10px 25px rgba(148, 163, 184, 0.35);
-      overflow: hidden;
-      height: 100%;
-    }
-
-    .member-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: var(--rainbow);
-      opacity: 0.08;
-      pointer-events: none;
-    }
-
-    .member-inner {
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .member-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .member-main {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    /* 캐릭터 사진 크게: 110x110 */
-    .member-avatar {
-      width: 110px;
-      height: 110px;
-      border-radius: 999px;
-      background: radial-gradient(circle at top, #bfdbfe, #ffffff);
-      border: 2px solid rgba(125, 211, 252, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      font-size: 32px;
-      flex-shrink: 0;
-    }
-
-    .member-avatar-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 999px;
-      display: block;
-    }
-
-    /* 🔍 비내음만 살짝 확대 */
-    .member-avatar-img[data-base="비내음"] {
-      transform: scale(1.25);
-      transform-origin: center;
-    }
-
-    /* 🔍 J나도 살짝 확대 */
-    .member-avatar-img[data-base="J나"] {
-      transform: scale(1.25);
-      transform-origin: center;
-    }
-
-    .member-name {
-      font-size: 15px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .member-sub { font-size: 11px; color: var(--text-sub); }
-
-    .member-tag {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.03);
-      border: 1px solid rgba(148, 163, 184, 0.65);
-      color: var(--text-sub);
-    }
-
-    .member-body {
-      font-size: 12px;
-      margin-top: 6px;
-      display: grid;
-      gap: 3px;
-    }
-
-    .member-label { font-weight: 600; margin-right: 4px; color: #0f172a; }
-
-    .member-footer {
-      margin-top: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: var(--text-sub);
-    }
-
-    .member-chip-row { display: flex; flex-wrap: wrap; gap: 4px; }
-
-    .member-chip {
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(191, 219, 254, 0.9);
-    }
-
-    /* 🐶 겸지니 강아지 스티커 - 위치 살짝 위로 */
-    .member-sticker {
-      position: absolute;
-      right: 10px;
-      bottom: 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      transform: rotate(-8deg);
-      z-index: 3;
-      pointer-events: none;
-    }
-
-    .member-sticker-circle {
-      width: 50px;
-      height: 50px;
-      border-radius: 999px;
-      padding: 3px;
-      background: radial-gradient(circle at top, #fef3c7, #fee2e2);
-      box-shadow:
-        0 6px 14px rgba(15, 23, 42, 0.25),
-        0 0 0 2px rgba(255, 255, 255, 0.9);
-    }
-
-    .member-sticker-img {
-      width: 100%;
-      height: 100%;
-      border-radius: 999px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .member-sticker-label {
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.9);
-      color: #0f172a;
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18);
-    }
-
-    /* 🏷 역할 배지 */
-    .role-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-
-    .role-badge-deputy {
-      background: rgba(59, 130, 246, 0.08);
-      border: 1px solid rgba(59, 130, 246, 0.7);
-      color: #1d4ed8;
-      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
-    }
-
-    .role-badge-master {
-      background: rgba(244, 114, 182, 0.10);
-      border: 1px solid rgba(236, 72, 153, 0.85);
-      color: #be185d;
-      box-shadow: 0 2px 6px rgba(236, 72, 153, 0.25);
-    }
-
-    /* 👑 길드장 전용 프레임 (마리앙르에만 적용) */
-    .guildmaster-frame {
-      border: 3px solid transparent;
-      background:
-        linear-gradient(rgba(255,255,255,0.98), rgba(255,255,255,0.98)) padding-box,
-        linear-gradient(135deg, #f472b6, #a855f7, #38bdf8) border-box;
-      box-shadow:
-        0 0 0 3px rgba(244,114,182,0.14),
-        0 14px 30px rgba(168,85,247,0.28);
-    }
-
-    footer {
-      margin-top: 30px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(226, 232, 240, 0.9);
-      font-size: 11px;
-      color: var(--text-sub);
-      text-align: center;
-    }
-
-    .rainbow-line {
-      width: 100%;
-      height: 3px;
-      border-radius: 999px;
-      background-image: var(--rainbow);
-      margin-bottom: 8px;
-      opacity: 0.85;
-    }
-
-    @media (max-width: 768px) {
-      .hero { grid-template-columns: minmax(0, 1fr); }
-      .guild-card { grid-template-columns: minmax(0, 1fr); }
-      .nav-links { gap: 8px; font-size: 13px; }
-      .hero-text h1 { font-size: 22px; }
-      .member-grid { grid-template-columns: minmax(0, 1fr); } /* 모바일 한 줄 1명 */
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="nav-inner">
-      <div class="logo">
-        <div class="logo-badge">☔</div>
-        <span>여름비 길드 라운지</span>
-      </div>
-      <nav class="nav-links">
-        <a href="#top">홈</a>
-        <a href="#guild">길드 소개</a>
-        <a href="#members">길드원 소개</a>
-        <div class="nav-pill">Recruiting ☁️</div>
-      </nav>
-    </div>
-  </header>
-
-  <main id="top">
-    <!-- Hero / 대문 -->
-    <section class="hero">
-      <div class="hero-text">
-        <h1><span>여름비 길드</span>에 오신 걸 환영합니다 ☔</h1>
-        <p>
-          하얀 구름 사이로 내리는 여름비처럼, 시원하고 편안한 분위기의 <b>성인 친목 길드</b>입니다.<br />
-          게임도 오래, 인연도 오래. 가볍게 시작해서 오래 함께할 가족을 기다리고 있어요.
-        </p>
-
-        <div class="hero-tags">
-          <div class="hero-tag">🧡 아이라 서버 · Lv.5 길드</div>
-          <div class="hero-tag">✨ 20세 이상 성인 친목</div>
-          <div class="hero-tag">⚔️ 어비스 · 레이드 · 파티 사냥 활발</div>
-          <div class="hero-tag">💬 카카오톡 오픈채팅 필수</div>
-        </div>
-
-        <div class="hero-buttons">
-          <button class="btn-primary" onclick="document.getElementById('members').scrollIntoView({behavior:'smooth'})">
-            길드원 구경하기
-            <span>↘</span>
-          </button>
-          <button class="btn-ghost" onclick="window.open('https://mabinogimobile.nexon.com/Community/Guild/3302078','_blank')">
-            여름비 길드 모집글 보러가기 ✉
-          </button>
-        </div>
-      </div>
-
-      <div class="hero-image">
-        <img
-          id="heroImage"
-          src="여름비전체길드원.jpg"
-          alt="여름비 전체 길드원"
-          onerror="heroFallback(this, 0)"
-        />
-        <div class="hero-image-note">
-          여름비 전체 길드원 사진
-        </div>
-      </div>
-    </section>
-
-    <!-- 길드 소개 --><!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- VERSION: Long + GM Frame + Jna Job + Hyeolhyu (png) + Binaeum Job + PhotoBoard(Firebase) -->
+  <!-- VERSION: Single Main + PhotoBoard (uid path) + Owner-only Delete -->
   <title>☔ 여름비 길드 라운지</title>
   <style>
     :root {
@@ -671,8 +30,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        "Noto Sans KR", sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI","Noto Sans KR", sans-serif;
       background: radial-gradient(circle at top, #e0f2fe 0, #f9fcff 45%, #ffffff 100%);
       color: var(--text-main);
       line-height: 1.6;
@@ -729,6 +87,8 @@
       align-items: center;
       gap: 14px;
       font-size: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .nav-links a {
@@ -760,7 +120,7 @@
       padding: 20px 16px 40px;
     }
 
-    /* Hero / 대문 영역 */
+    /* Hero */
     .hero {
       margin-top: 18px;
       padding: 24px 20px 26px;
@@ -780,26 +140,10 @@
     }
 
     .hero-text h1 { font-size: 26px; margin-bottom: 6px; }
+    .hero-text h1 span { background-image: var(--rainbow); -webkit-background-clip: text; color: transparent; }
+    .hero-text p { font-size: 14px; color: var(--text-sub); margin-bottom: 12px; }
 
-    .hero-text h1 span {
-      background-image: var(--rainbow);
-      -webkit-background-clip: text;
-      color: transparent;
-    }
-
-    .hero-text p {
-      font-size: 14px;
-      color: var(--text-sub);
-      margin-bottom: 12px;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
     .hero-tag {
       font-size: 12px;
       padding: 4px 10px;
@@ -812,12 +156,7 @@
       gap: 4px;
     }
 
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 4px;
-    }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
 
     .btn-primary {
       font-size: 14px;
@@ -834,11 +173,7 @@
       gap: 6px;
       transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 22px rgba(96, 165, 250, 0.75);
-    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(96, 165, 250, 0.75); }
 
     .btn-ghost {
       font-size: 14px;
@@ -853,11 +188,22 @@
       gap: 6px;
       transition: background 0.12s ease, transform 0.12s ease;
     }
+    .btn-ghost:hover { background: #ffffff; transform: translateY(-1px); }
 
-    .btn-ghost:hover {
-      background: #ffffff;
-      transform: translateY(-1px);
+    .btn-danger {
+      font-size: 14px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(225, 29, 72, 0.45);
+      cursor: pointer;
+      background: rgba(225, 29, 72, 0.06);
+      color: #be123c;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.12s ease, background 0.12s ease;
     }
+    .btn-danger:hover { transform: translateY(-1px); background: rgba(225, 29, 72, 0.10); }
 
     .hero-image {
       position: relative;
@@ -871,7 +217,6 @@
       justify-content: center;
       padding: 8px;
     }
-
     .hero-image img {
       max-width: 100%;
       max-height: 260px;
@@ -880,7 +225,6 @@
       object-fit: cover;
       box-shadow: 0 10px 24px rgba(15, 23, 42, 0.25);
     }
-
     .hero-image-note {
       position: absolute;
       bottom: 6px;
@@ -892,7 +236,6 @@
       color: #e5e7eb;
     }
 
-    /* 섹션 공통 */
     section { margin-top: 26px; }
 
     .section-header {
@@ -901,28 +244,11 @@
       justify-content: space-between;
       gap: 10px;
       margin-bottom: 12px;
+      flex-wrap: wrap;
     }
-
-    .section-title {
-      font-size: 18px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .section-title-badge {
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(191, 219, 254, 0.7);
-      color: var(--text-sub);
-    }
-
-    .section-desc {
-      font-size: 13px;
-      color: var(--text-sub);
-    }
+    .section-title { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .section-title-badge { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(191, 219, 254, 0.7); color: var(--text-sub); }
+    .section-desc { font-size: 13px; color: var(--text-sub); }
 
     /* 길드 소개 카드 */
     .guild-card {
@@ -937,13 +263,7 @@
       font-size: 13px;
     }
 
-    .guild-pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-
+    .guild-pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
     .guild-pill {
       padding: 3px 8px;
       border-radius: 999px;
@@ -952,14 +272,8 @@
       font-size: 11px;
       color: var(--text-sub);
     }
-
     .guild-card h3 { font-size: 15px; margin-bottom: 4px; }
-
-    .guild-list {
-      padding-left: 16px;
-      margin-top: 4px;
-      color: var(--text-sub);
-    }
+    .guild-list { padding-left: 16px; margin-top: 4px; color: var(--text-sub); }
 
     .guild-side-box {
       border-radius: var(--radius-lg);
@@ -969,21 +283,10 @@
       font-size: 12px;
       color: var(--text-sub);
     }
+    .guild-side-row { display: flex; justify-content: space-between; gap: 10px; margin-top: 4px; }
 
-    .guild-side-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-top: 4px;
-    }
-
-    /* 길드원 소개 */
-    .member-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr)); /* 한 줄에 2명 */
-      gap: 18px;
-      align-items: stretch;
-    }
+    /* 길드원 */
+    .member-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
 
     .member-card {
       position: relative;
@@ -995,39 +298,13 @@
       overflow: hidden;
       height: 100%;
     }
+    .member-card::before { content: ""; position: absolute; inset: 0; background-image: var(--rainbow); opacity: 0.08; pointer-events: none; }
 
-    .member-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: var(--rainbow);
-      opacity: 0.08;
-      pointer-events: none;
-    }
+    .member-inner { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; }
 
-    .member-inner {
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
+    .member-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+    .member-main { display: flex; align-items: center; gap: 14px; }
 
-    .member-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .member-main {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    /* 캐릭터 사진 크게: 110x110 */
     .member-avatar {
       width: 110px;
       height: 110px;
@@ -1041,36 +318,11 @@
       font-size: 32px;
       flex-shrink: 0;
     }
+    .member-avatar-img { width: 100%; height: 100%; object-fit: cover; border-radius: 999px; display: block; }
+    .member-avatar-img[data-base="비내음"] { transform: scale(1.25); transform-origin: center; }
+    .member-avatar-img[data-base="J나"] { transform: scale(1.25); transform-origin: center; }
 
-    .member-avatar-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 999px;
-      display: block;
-    }
-
-    /* 🔍 비내음만 살짝 확대 */
-    .member-avatar-img[data-base="비내음"] {
-      transform: scale(1.25);
-      transform-origin: center;
-    }
-
-    /* 🔍 J나도 살짝 확대 */
-    .member-avatar-img[data-base="J나"] {
-      transform: scale(1.25);
-      transform-origin: center;
-    }
-
-    .member-name {
-      font-size: 15px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
+    .member-name { font-size: 15px; font-weight: 700; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
     .member-sub { font-size: 11px; color: var(--text-sub); }
 
     .member-tag {
@@ -1080,15 +332,10 @@
       background: rgba(15, 23, 42, 0.03);
       border: 1px solid rgba(148, 163, 184, 0.65);
       color: var(--text-sub);
+      white-space: nowrap;
     }
 
-    .member-body {
-      font-size: 12px;
-      margin-top: 6px;
-      display: grid;
-      gap: 3px;
-    }
-
+    .member-body { font-size: 12px; margin-top: 6px; display: grid; gap: 3px; }
     .member-label { font-weight: 600; margin-right: 4px; color: #0f172a; }
 
     .member-footer {
@@ -1099,18 +346,12 @@
       gap: 6px;
       font-size: 11px;
       color: var(--text-sub);
+      flex-wrap: wrap;
     }
 
     .member-chip-row { display: flex; flex-wrap: wrap; gap: 4px; }
+    .member-chip { padding: 2px 7px; border-radius: 999px; background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(191, 219, 254, 0.9); }
 
-    .member-chip {
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(191, 219, 254, 0.9);
-    }
-
-    /* 🐶 겸지니 강아지 스티커 - 위치 살짝 위로 */
     .member-sticker {
       position: absolute;
       right: 10px;
@@ -1130,18 +371,9 @@
       border-radius: 999px;
       padding: 3px;
       background: radial-gradient(circle at top, #fef3c7, #fee2e2);
-      box-shadow:
-        0 6px 14px rgba(15, 23, 42, 0.25),
-        0 0 0 2px rgba(255, 255, 255, 0.9);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.25), 0 0 0 2px rgba(255, 255, 255, 0.9);
     }
-
-    .member-sticker-img {
-      width: 100%;
-      height: 100%;
-      border-radius: 999px;
-      object-fit: cover;
-      display: block;
-    }
+    .member-sticker-img { width: 100%; height: 100%; border-radius: 999px; object-fit: cover; display: block; }
 
     .member-sticker-label {
       font-size: 10px;
@@ -1152,7 +384,6 @@
       box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18);
     }
 
-    /* 🏷 역할 배지 */
     .role-badge {
       display: inline-flex;
       align-items: center;
@@ -1163,22 +394,9 @@
       font-weight: 600;
       letter-spacing: 0.02em;
     }
+    .role-badge-deputy { background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.7); color: #1d4ed8; box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25); }
+    .role-badge-master { background: rgba(244, 114, 182, 0.10); border: 1px solid rgba(236, 72, 153, 0.85); color: #be185d; box-shadow: 0 2px 6px rgba(236, 72, 153, 0.25); }
 
-    .role-badge-deputy {
-      background: rgba(59, 130, 246, 0.08);
-      border: 1px solid rgba(59, 130, 246, 0.7);
-      color: #1d4ed8;
-      box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
-    }
-
-    .role-badge-master {
-      background: rgba(244, 114, 182, 0.10);
-      border: 1px solid rgba(236, 72, 153, 0.85);
-      color: #be185d;
-      box-shadow: 0 2px 6px rgba(236, 72, 153, 0.25);
-    }
-
-    /* 👑 길드장 전용 프레임 (마리앙르에만 적용) */
     .guildmaster-frame {
       border: 3px solid transparent;
       background:
@@ -1189,6 +407,11 @@
         0 14px 30px rgba(168,85,247,0.28);
     }
 
+    /* Photo board */
+    #pbGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    @media (max-width: 900px) { #pbGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 520px) { #pbGrid { grid-template-columns: minmax(0, 1fr); } }
+
     footer {
       margin-top: 30px;
       padding-top: 14px;
@@ -1197,40 +420,18 @@
       color: var(--text-sub);
       text-align: center;
     }
-
-    .rainbow-line {
-      width: 100%;
-      height: 3px;
-      border-radius: 999px;
-      background-image: var(--rainbow);
-      margin-bottom: 8px;
-      opacity: 0.85;
-    }
-
-    /* 📷 Photo Board grid (추가) */
-    #pbGrid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    @media (max-width: 900px) {
-      #pbGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
+    .rainbow-line { width: 100%; height: 3px; border-radius: 999px; background-image: var(--rainbow); margin-bottom: 8px; opacity: 0.85; }
 
     @media (max-width: 768px) {
       .hero { grid-template-columns: minmax(0, 1fr); }
       .guild-card { grid-template-columns: minmax(0, 1fr); }
       .nav-links { gap: 8px; font-size: 13px; }
       .hero-text h1 { font-size: 22px; }
-      .member-grid { grid-template-columns: minmax(0, 1fr); } /* 모바일 한 줄 1명 */
-    }
-
-    @media (max-width: 520px) {
-      #pbGrid { grid-template-columns: minmax(0, 1fr); }
+      .member-grid { grid-template-columns: minmax(0, 1fr); }
     }
   </style>
 </head>
+
 <body>
   <header>
     <div class="nav-inner">
@@ -1248,8 +449,9 @@
     </div>
   </header>
 
+  <!-- ✅ main은 딱 1개 -->
   <main id="top">
-    <!-- Hero / 대문 -->
+    <!-- Hero -->
     <section class="hero">
       <div class="hero-text">
         <h1><span>여름비 길드</span>에 오신 걸 환영합니다 ☔</h1>
@@ -1267,8 +469,7 @@
 
         <div class="hero-buttons">
           <button class="btn-primary" onclick="document.getElementById('members').scrollIntoView({behavior:'smooth'})">
-            길드원 구경하기
-            <span>↘</span>
+            길드원 구경하기 <span>↘</span>
           </button>
           <button class="btn-ghost" onclick="window.open('https://mabinogimobile.nexon.com/Community/Guild/3302078','_blank')">
             여름비 길드 모집글 보러가기 ✉
@@ -1277,28 +478,16 @@
       </div>
 
       <div class="hero-image">
-        <img
-          id="heroImage"
-          src="여름비전체길드원.jpg"
-          alt="여름비 전체 길드원"
-          onerror="heroFallback(this, 0)"
-        />
-        <div class="hero-image-note">
-          여름비 전체 길드원 사진
-        </div>
+        <img id="heroImage" src="여름비전체길드원.jpg" alt="여름비 전체 길드원" onerror="heroFallback(this, 0)" />
+        <div class="hero-image-note">여름비 전체 길드원 사진</div>
       </div>
     </section>
 
     <!-- 길드 소개 -->
     <section id="guild">
       <div class="section-header">
-        <div class="section-title">
-          길드 소개
-          <span class="section-title-badge">About 여름비</span>
-        </div>
-        <p class="section-desc">
-          마비노기 모바일 아이라 서버, 성인 친목 길드 &lt;여름비&gt;의 분위기와 운영 방식을 정리했어요.
-        </p>
+        <div class="section-title">길드 소개 <span class="section-title-badge">About 여름비</span></div>
+        <p class="section-desc">마비노기 모바일 아이라 서버, 성인 친목 길드 &lt;여름비&gt;의 분위기와 운영 방식을 정리했어요.</p>
       </div>
 
       <div class="guild-card">
@@ -1308,6 +497,7 @@
             <div class="guild-pill">🗺 아이라 서버</div>
             <div class="guild-pill">🏰 Lv.5 길드</div>
           </div>
+
           <h3>여름비는 이런 길드를 지향해요</h3>
           <ul class="guild-list">
             <li>활기찬 채팅과 파티 플레이를 좋아하는 분들과 오래 함께하는 길드</li>
@@ -1352,39 +542,22 @@
     <!-- 길드원 소개 -->
     <section id="members">
       <div class="section-header">
-        <div class="section-title">
-          길드원 소개
-          <span class="section-title-badge">Member Profiles</span>
-        </div>
-        <p class="section-desc">
-          현재 여름비와 함께하고 있는 길드원들을 한눈에 볼 수 있는 공간이에요.
-        </p>
+        <div class="section-title">길드원 소개 <span class="section-title-badge">Member Profiles</span></div>
+        <p class="section-desc">현재 여름비와 함께하고 있는 길드원들을 한눈에 볼 수 있는 공간이에요.</p>
       </div>
 
       <div class="member-grid">
-
         <!-- 👑 길드마스터 마리앙르 -->
         <article class="member-card guildmaster-frame">
           <div class="member-inner">
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img
-                    src="마리앙르.png"
-                    alt="마리앙르 프로필 이미지"
-                    class="member-avatar-img"
-                    data-base="마리앙르"
-                    onerror="memberFallback(this, 0)"
-                  />
+                  <img src="마리앙르.png" alt="마리앙르" class="member-avatar-img" data-base="마리앙르" onerror="memberFallback(this, 0)" />
                 </div>
                 <div>
-                  <div class="member-name">
-                    마리앙르
-                    <span class="role-badge role-badge-master">👑 길드장</span>
-                  </div>
-                  <div class="member-sub">
-                    아이디와 직업 말고 모든 것이 비밀에 싸인 여름비의 길드마스터
-                  </div>
+                  <div class="member-name">마리앙르 <span class="role-badge role-badge-master">👑 길드장</span></div>
+                  <div class="member-sub">아이디와 직업 말고 모든 것이 비밀에 싸인 여름비의 길드마스터</div>
                 </div>
               </div>
               <div class="member-tag">석궁사수 · Crossbow Marksman 🎯</div>
@@ -1414,22 +587,11 @@
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img
-                    src="크로스퍼.png"
-                    alt="크로스퍼 프로필 이미지"
-                    class="member-avatar-img"
-                    data-base="크로스퍼"
-                    onerror="memberFallback(this, 0)"
-                  />
+                  <img src="크로스퍼.png" alt="크로스퍼" class="member-avatar-img" data-base="크로스퍼" onerror="memberFallback(this, 0)" />
                 </div>
                 <div>
-                  <div class="member-name">
-                    크로스퍼
-                    <span class="role-badge role-badge-deputy">★ 부길드장</span>
-                  </div>
-                  <div class="member-sub">
-                    수라미, 크로슈 (부캐)
-                  </div>
+                  <div class="member-name">크로스퍼 <span class="role-badge role-badge-deputy">★ 부길드장</span></div>
+                  <div class="member-sub">수라미, 크로슈 (부캐)</div>
                 </div>
               </div>
               <div class="member-tag">검술 · Sword Master ⚔️</div>
@@ -1437,10 +599,7 @@
 
             <div class="member-body">
               <div><span class="member-label">선호 나이</span>20살</div>
-              <div>
-                <span class="member-label">현실 직업</span>
-                자동차 관련 <span style="color:#e11d48;font-size:11px;">(비밀…)</span>
-              </div>
+              <div><span class="member-label">현실 직업</span>자동차 관련 <span style="color:#e11d48;font-size:11px;">(비밀…)</span></div>
               <div><span class="member-label">좋아하는 것</span>럭키~ 🍀</div>
               <div><span class="member-label">싫어하는 것</span>언럭키~ 💦</div>
             </div>
@@ -1456,19 +615,13 @@
           </div>
         </article>
 
-        <!-- 겸지니 카드 -->
+        <!-- 겸지니 -->
         <article class="member-card">
           <div class="member-inner">
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img
-                    src="겸지니.png"
-                    alt="겸지니 프로필 이미지"
-                    class="member-avatar-img"
-                    data-base="겸지니"
-                    onerror="memberFallback(this, 0)"
-                  />
+                  <img src="겸지니.png" alt="겸지니" class="member-avatar-img" data-base="겸지니" onerror="memberFallback(this, 0)" />
                 </div>
                 <div>
                   <div class="member-name">겸지니 <span style="font-size:11px;color:#64748b;">(본케)</span></div>
@@ -1494,42 +647,26 @@
               <span>Online · Off 둘 다 소중하게 ☁</span>
             </div>
 
-            <!-- 🐶 뚜뚜 스티커 -->
             <div class="member-sticker">
               <div class="member-sticker-circle">
-                <img
-                  src="뚜뚜.png"
-                  alt="뚜뚜"
-                  class="member-sticker-img"
-                  data-base="뚜뚜"
-                  onerror="memberFallback(this, 0)"
-                />
+                <img src="뚜뚜.png" alt="뚜뚜" class="member-sticker-img" data-base="뚜뚜" onerror="memberFallback(this, 0)" />
               </div>
               <div class="member-sticker-label">뚜뚜</div>
             </div>
           </div>
         </article>
 
-        <!-- 시아핑 카드 -->
+        <!-- 시아핑 -->
         <article class="member-card">
           <div class="member-inner">
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img
-                    src="시아핑.png"
-                    alt="시아핑 프로필 이미지"
-                    class="member-avatar-img"
-                    data-base="시아핑"
-                    onerror="memberFallback(this, 0)"
-                  />
+                  <img src="시아핑.png" alt="시아핑" class="member-avatar-img" data-base="시아핑" onerror="memberFallback(this, 0)" />
                 </div>
                 <div>
                   <div class="member-name">시아핑 <span style="font-size:11px;color:#64748b;">(본캐)</span></div>
-                  <div class="member-sub">
-                    말랑말랑시아핑 · 말랑콩떡시아핑<br />
-                    말랑찰떡시아핑 · 말랑쫀떡시아핑 (부캐's)
-                  </div>
+                  <div class="member-sub">말랑말랑시아핑 · 말랑콩떡시아핑<br/>말랑찰떡시아핑 · 말랑쫀떡시아핑 (부캐's)</div>
                 </div>
               </div>
               <div class="member-tag">음유시인 · Bard 🎵</div>
@@ -1553,25 +690,17 @@
           </div>
         </article>
 
-        <!-- 🌧 비내음 카드 -->
+        <!-- 비내음 -->
         <article class="member-card">
           <div class="member-inner">
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img
-                    src="비내음.png"
-                    alt="비내음 프로필 이미지"
-                    class="member-avatar-img"
-                    data-base="비내음"
-                    onerror="memberFallback(this, 0)"
-                  />
+                  <img src="비내음.png" alt="비내음" class="member-avatar-img" data-base="비내음" onerror="memberFallback(this, 0)" />
                 </div>
                 <div>
                   <div class="member-name">비내음 <span style="font-size:11px;color:#64748b;">(본캐)</span></div>
-                  <div class="member-sub">
-                    cover, feat (부캐)
-                  </div>
+                  <div class="member-sub">cover, feat (부캐)</div>
                 </div>
               </div>
               <div class="member-tag">전격술사 · Lightning Sorcerer ⚡</div>
@@ -1595,19 +724,13 @@
           </div>
         </article>
 
-        <!-- 🥊 빡빡이아조씨 카드 -->
+        <!-- 빡빡이아조씨 -->
         <article class="member-card">
           <div class="member-inner">
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img
-                    src="빡빡이아조씨.png"
-                    alt="빡빡이아조씨 프로필 이미지"
-                    class="member-avatar-img"
-                    data-base="빡빡이아조씨"
-                    onerror="memberFallback(this, 0)"
-                  />
+                  <img src="빡빡이아조씨.png" alt="빡빡이아조씨" class="member-avatar-img" data-base="빡빡이아조씨" onerror="memberFallback(this, 0)" />
                 </div>
                 <div>
                   <div class="member-name">빡빡이아조씨</div>
@@ -1635,25 +758,17 @@
           </div>
         </article>
 
-        <!-- 🧊 J나 카드 -->
+        <!-- J나 -->
         <article class="member-card">
           <div class="member-inner">
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img
-                    src="J나.PNG"
-                    alt="J나 프로필 이미지"
-                    class="member-avatar-img"
-                    data-base="J나"
-                    onerror="memberFallback(this, 0)"
-                  />
+                  <img src="J나.PNG" alt="J나" class="member-avatar-img" data-base="J나" onerror="memberFallback(this, 0)" />
                 </div>
                 <div>
                   <div class="member-name">J나</div>
-                  <div class="member-sub">
-                    J나힐 · 실바나S
-                  </div>
+                  <div class="member-sub">J나힐 · 실바나S</div>
                 </div>
               </div>
               <div class="member-tag">빙결술사 · Ice Sorcerer ❄️</div>
@@ -1677,24 +792,16 @@
           </div>
         </article>
 
-        <!-- 🔥 혈휴 카드 (파일명 .png로 변경) -->
+        <!-- 혈휴 -->
         <article class="member-card">
           <div class="member-inner">
             <div class="member-header">
               <div class="member-main">
                 <div class="member-avatar">
-                  <img
-                    src="혈휴님.png"
-                    alt="혈휴 프로필 이미지"
-                    class="member-avatar-img"
-                    data-base="혈휴님"
-                    onerror="memberFallback(this, 0)"
-                  />
+                  <img src="혈휴님.png" alt="혈휴님" class="member-avatar-img" data-base="혈휴님" onerror="memberFallback(this, 0)" />
                 </div>
                 <div>
-                  <div class="member-name">
-                    혈휴 <span style="font-size:11px;color:#64748b;">(본캐)</span>
-                  </div>
+                  <div class="member-name">혈휴 <span style="font-size:11px;color:#64748b;">(본캐)</span></div>
                   <div class="member-sub">혈리아 (부캐)</div>
                 </div>
               </div>
@@ -1718,20 +825,14 @@
             </div>
           </div>
         </article>
-
       </div>
     </section>
 
-    <!-- 📷 사진 게시판 (Firebase) -->
+    <!-- 📷 사진 게시판 -->
     <section id="board">
       <div class="section-header">
-        <div class="section-title">
-          사진 게시판
-          <span class="section-title-badge">Photo Board</span>
-        </div>
-        <p class="section-desc">
-          길드원들이 사진을 올리고, 최신 순으로 공유하는 공간이에요.
-        </p>
+        <div class="section-title">사진 게시판 <span class="section-title-badge">Photo Board</span></div>
+        <p class="section-desc">길드원들이 사진을 올리고 공유하는 공간이에요. (✅ 본인 업로드만 본인 삭제 가능)</p>
       </div>
 
       <div class="guild-card" style="grid-template-columns: minmax(0, 1fr);">
@@ -1758,6 +859,7 @@
               <div style="font-size:11px; color:var(--text-sub);">
                 권장: JPG/PNG · 너무 큰 파일은 업로드가 느릴 수 있어요. (권장 10MB 이하)
               </div>
+              <div id="pbUidHint" style="font-size:11px; color:var(--text-sub); opacity:.9;"></div>
             </div>
 
             <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
@@ -1771,11 +873,8 @@
 
       <div style="margin-top:14px;">
         <div class="section-header" style="margin-bottom:10px;">
-          <div class="section-title" style="font-size:16px;">
-            최신 업로드
-            <span class="section-title-badge">Newest</span>
-          </div>
-          <p class="section-desc" style="font-size:12px;">최신순 30개 표시</p>
+          <div class="section-title" style="font-size:16px;">최신 업로드 <span class="section-title-badge">Newest</span></div>
+          <p class="section-desc" style="font-size:12px;">최신순 30개 표시 · 사진 클릭하면 크게 보기(본인 글이면 삭제 버튼 표시)</p>
         </div>
 
         <div id="pbGrid"></div>
@@ -1789,45 +888,29 @@
     </footer>
   </main>
 
-  <!-- 이미지 경로 자동 fallback 스크립트 -->
+  <!-- 이미지 경로 fallback -->
   <script>
     function heroFallback(img, step) {
-      const paths = [
-        "여름비전체길드원.jpg",
-        "./여름비전체길드원.jpg",
-        "images/여름비전체길드원.jpg",
-        "img/여름비전체길드원.jpg"
-      ];
+      const paths = ["여름비전체길드원.jpg","./여름비전체길드원.jpg","images/여름비전체길드원.jpg","img/여름비전체길드원.jpg"];
       const next = step + 1;
-      if (next < paths.length) {
-        img.onerror = function () { heroFallback(img, next); };
-        img.src = paths[next];
-      }
+      if (next < paths.length) { img.onerror = function(){ heroFallback(img,next); }; img.src = paths[next]; }
     }
 
     function memberFallback(img, step) {
       const base = img.getAttribute("data-base") || "";
-      const paths = [
-        base + ".png",
-        "./" + base + ".png",
-        "images/" + base + ".png",
-        "img/" + base + ".png"
-      ];
+      const paths = [base+".png","./"+base+".png","images/"+base+".png","img/"+base+".png"];
       const next = step + 1;
-      if (next < paths.length) {
-        img.onerror = function () { memberFallback(img, next); };
-        img.src = paths[next];
-      }
+      if (next < paths.length) { img.onerror = function(){ memberFallback(img,next); }; img.src = paths[next]; }
     }
   </script>
 
-  <!-- Firebase (CDN compat) -->
+  <!-- Firebase (compat CDN) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
 
-  <!-- Photo Board (Firebase) -->
+  <!-- Photo Board Logic (Owner-only Delete) -->
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyB5gXPe37O1DBqIcxblxqff19icly75Dp0",
@@ -1844,22 +927,21 @@
     const db = firebase.firestore();
     const st = firebase.storage();
 
-    async function ensureAuth() {
-      if (auth.currentUser) return auth.currentUser;
-      const cred = await auth.signInAnonymously();
-      return cred.user;
-    }
-
     const $ = (id) => document.getElementById(id);
     function setStatus(msg) { const el = $("pbStatus"); if (el) el.textContent = msg || ""; }
 
     function escapeHtml(s) {
       return String(s || "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+        .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;").replaceAll("'","&#039;");
+    }
+
+    function canDelete(currentUid, itemUid){ return !!currentUid && currentUid === itemUid; }
+
+    async function ensureAuth() {
+      if (auth.currentUser) return auth.currentUser;
+      const cred = await auth.signInAnonymously();
+      return cred.user;
     }
 
     function openLightbox(it) {
@@ -1893,15 +975,18 @@
       img.style.cssText = "width:100%; max-height:70vh; object-fit:contain; background:#0b1220; display:block;";
 
       const meta = document.createElement("div");
-      meta.style.cssText = "padding:12px 14px; display:flex; justify-content:space-between; gap:10px; align-items:flex-start;";
+      meta.style.cssText = "padding:12px 14px; display:flex; justify-content:space-between; gap:10px; align-items:flex-start; flex-wrap:wrap;";
 
       const left = document.createElement("div");
-      left.style.cssText = "display:grid; gap:4px;";
+      left.style.cssText = "display:grid; gap:4px; min-width: 220px;";
       left.innerHTML = `
         <div style="font-weight:800; font-size:14px;">${escapeHtml(it.name || "익명")}</div>
         <div style="font-size:13px; color:var(--text-sub);">${escapeHtml(it.caption || "")}</div>
         <div style="font-size:11px; color:var(--text-sub); opacity:.85;">${escapeHtml(it.createdAtText || "")}</div>
       `;
+
+      const right = document.createElement("div");
+      right.style.cssText = "display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end;";
 
       const close = document.createElement("button");
       close.className = "btn-ghost";
@@ -1909,8 +994,31 @@
       close.textContent = "닫기";
       close.onclick = () => modal.remove();
 
+      const curUid = auth.currentUser ? auth.currentUser.uid : null;
+      const del = document.createElement("button");
+      del.className = "btn-danger";
+      del.type = "button";
+      del.textContent = "삭제";
+      del.style.display = canDelete(curUid, it.uid) ? "inline-flex" : "none";
+      del.onclick = async () => {
+        const ok = confirm("정말 삭제할까? (삭제하면 되돌릴 수 없어)");
+        if (!ok) return;
+        try {
+          await deletePost(it);
+          modal.remove();
+          await loadBoard();
+          setStatus("삭제 완료!");
+        } catch (e) {
+          console.error(e);
+          alert("삭제 실패! 권한(Rules) 또는 로그인 상태를 확인해줘.");
+        }
+      };
+
+      right.appendChild(del);
+      right.appendChild(close);
+
       meta.appendChild(left);
-      meta.appendChild(close);
+      meta.appendChild(right);
 
       box.appendChild(img);
       box.appendChild(meta);
@@ -1967,10 +1075,7 @@
 
     async function loadBoard() {
       setStatus("불러오는 중...");
-      const snap = await db.collection("photos")
-        .orderBy("createdAt", "desc")
-        .limit(30)
-        .get();
+      const snap = await db.collection("photos").orderBy("createdAt", "desc").limit(30).get();
 
       const items = snap.docs.map(d => {
         const v = d.data();
@@ -1980,6 +1085,8 @@
           name: v.name || "익명",
           caption: v.caption || "",
           imageUrl: v.imageUrl || "",
+          storagePath: v.storagePath || "",
+          uid: v.uid || null,
           createdAtText: dt ? dt.toLocaleString("ko-KR") : ""
         };
       }).filter(x => x.imageUrl);
@@ -1997,11 +1104,14 @@
       if (file.size > 10 * 1024 * 1024) { setStatus("파일이 너무 커! (권장 10MB 이하)"); return; }
 
       setStatus("로그인 확인 중...");
-      await ensureAuth();
+      const user = await ensureAuth();
+      if ($("pbUidHint")) $("pbUidHint").textContent = `내 UID: ${user.uid}`;
 
       const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
       const id = `${Date.now()}_${Math.random().toString(16).slice(2)}`;
-      const path = `photos/${id}.${ext}`;
+
+      // ✅ 핵심: 본인 uid 폴더로 저장 (photos/<uid>/<id>.<ext>)
+      const path = `photos/${user.uid}/${id}.${ext}`;
 
       setStatus("업로드 중...");
       const ref = st.ref().child(path);
@@ -2015,7 +1125,7 @@
         imageUrl: url,
         storagePath: path,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        uid: auth.currentUser ? auth.currentUser.uid : null
+        uid: user.uid
       });
 
       if ($("pbCaption")) $("pbCaption").value = "";
@@ -2024,9 +1134,28 @@
       await loadBoard();
     }
 
-    window.addEventListener("DOMContentLoaded", () => {
+    async function deletePost(it) {
+      const user = await ensureAuth();
+      if (!canDelete(user.uid, it.uid)) throw new Error("No permission");
+
+      // 1) Firestore 문서 삭제
+      await db.collection("photos").doc(it.id).delete();
+
+      // 2) Storage 파일 삭제
+      if (it.storagePath) {
+        await st.ref().child(it.storagePath).delete();
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", async () => {
+      try {
+        const user = await ensureAuth();
+        if ($("pbUidHint")) $("pbUidHint").textContent = `내 UID: ${user.uid}`;
+      } catch (_) {}
+
       if ($("pbUploadBtn")) $("pbUploadBtn").addEventListener("click", uploadPhoto);
       if ($("pbRefreshBtn")) $("pbRefreshBtn").addEventListener("click", loadBoard);
+
       loadBoard().catch((e) => {
         console.error(e);
         setStatus("목록을 불러오지 못했어. Firebase 설정/권한(Rules)을 확인해줘.");
